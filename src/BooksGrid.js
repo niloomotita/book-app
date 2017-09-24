@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import './App.css'
-import * as BooksAPI from './BooksAPI'
 
 class BooksGrid extends Component{
     state = {
