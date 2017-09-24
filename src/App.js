@@ -28,19 +28,12 @@ class BooksApp extends React.Component {
     })
     })
   }
-  findBook = (quary, maxResults) => {
-      BooksAPI.search(quary,maxResults).then((quary) =>{
-        
-        
-      })
-    }
+  
   render() {
     return (
       <div className="app">
          <Route  exact path='/create' render={()=>(
              <SearchBook
-               books={this.state.books}
-               onBooksearch={this.findBook}
           />
           )}
        />
