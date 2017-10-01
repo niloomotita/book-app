@@ -10,7 +10,6 @@ class BooksGrid extends Component{
    getBookShelf (bookId,shelfSelector) {
         BooksAPI.get(bookId).then((book)=>{
            shelfSelector.value=book.shelf
-           console.log(book.shelf,'boook')
         })
     }
     render(){

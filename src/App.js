@@ -10,12 +10,6 @@ class BooksApp extends React.Component {
   state = {
     books:[],
     searchResult:[]
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
   }
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
@@ -29,10 +23,19 @@ class BooksApp extends React.Component {
     })
     })
   }
+
   findBook = (query, maxResults) => {
+      const books = this.state.books;
       BooksAPI.search(query,maxResults).then((result) =>{
+        // add shelf info to each title 
+        result.map((r)=> {
+          books.map(book => {
+            if(book.id === r.id) {
+              r.shelf = book.shelf || "none";
+            }
+          })
+        })
        this.setState({searchResult:result})
-       console.log(this.state)
       })
     }
   
