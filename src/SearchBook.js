@@ -7,28 +7,17 @@ import BooksGrid from './BooksGrid'
 class SearchBook extends Component {
   state ={
     query : '',
-    searchResult:[]
+    
   }
   updateQuery = (query)=>{
       this.setState({query: query.trim() })
-      this.findBook(query,20)
+      this.props.onSearch(query,20)
     }
-    findBook = (query, maxResults) => {
-      BooksAPI.search(query,maxResults).then((result) =>{
-       this.setState({searchResult:result})
-       console.log(this.state)
-      })
-    }
-    handleBookShelf = (book, shelf) => {
-      console.log(book,shelf,'kkkkn')
-     BooksAPI.update(book, shelf).then((book) => {
-     BooksAPI.getAll().then((books) => {
-      this.setState({ books: books})
-    })
-    })
-  }
+    
+
 
   render () {
+    const {searchResult,onSearch,onChangeBookShelf}=this.props
      const{query} = this.state
     return (
         <div className="search-books">
@@ -46,8 +35,8 @@ class SearchBook extends Component {
             </div>
             <div className="search-books-results">
               <BooksGrid
-                        books={this.state.searchResult}
-                        onChangeBookShelf={this.handleBookShelf}
+                        books={searchResult}
+                        onChangeBookShelf={onChangeBookShelf}
                      />
             </div>
           </div>

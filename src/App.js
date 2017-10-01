@@ -9,6 +9,7 @@ import './App.css'
 class BooksApp extends React.Component {
   state = {
     books:[],
+    searchResult:[]
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -28,12 +29,22 @@ class BooksApp extends React.Component {
     })
     })
   }
+  findBook = (query, maxResults) => {
+      BooksAPI.search(query,maxResults).then((result) =>{
+       this.setState({searchResult:result})
+       console.log(this.state)
+      })
+    }
   
+ 
   render() {
     return (
       <div className="app">
-         <Route  exact path='/create' render={()=>(
+         <Route  exact path='/search' render={()=>(
              <SearchBook
+              onSearch={this.findBook}
+              searchResult={this.state.searchResult}
+              onChangeBookShelf={this.handleBookShelf}
           />
           )}
        />
@@ -76,7 +87,7 @@ class BooksApp extends React.Component {
             </div>
           <div className="open-search">
               <Link className="open-search"
-                to='/create'
+                to='/search'
               >Add a book</Link>
             </div>
           </div>
