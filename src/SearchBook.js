@@ -6,14 +6,16 @@ import BooksGrid from './BooksGrid'
 
 class SearchBook extends Component {
   state = {
-    query: '',
-
+    query: ''
   }
   updateQuery = (query) => {
     this.setState({ query: query.trim() })
     this.props.onSearch(query, 20)
   }
 
+  componentDidMount() {
+    this.props.onReset();
+  }
 
 
   render() {
@@ -29,7 +31,9 @@ class SearchBook extends Component {
             <input type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={(event) => this.updateQuery(event.target.value)}
+              onChange={(event) => {
+                this.updateQuery(event.target.value)
+              }}
             />
           </div>
         </div>

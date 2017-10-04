@@ -16,6 +16,13 @@ class BooksApp extends React.Component {
       this.setState({ books: books })
     })
   }
+
+  /**
+   * updates the shelf property of the book and reloads the books
+   * @param {object} book 
+   * @param {string} shelf - shows each book belongs to which shelf
+   * @memberof BooksApp
+   */
   handleBookShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((book) => {
       BooksAPI.getAll().then((books) => {
@@ -23,7 +30,16 @@ class BooksApp extends React.Component {
       })
     })
   }
-
+  // removes the books from search result page
+  resetSearchResults = () => {
+    this.setState({ searchResult: [] })
+  }
+  /**
+   * finds the books that user search for and add the shelf property to the books that have a shelf
+   * @param {string} query
+   * @param {number} maxResults 
+   * @memberof BooksApp
+   */
   findBook = (query, maxResults) => {
     const books = this.state.books;
     BooksAPI.search(query, maxResults).then((result) => {
@@ -48,6 +64,7 @@ class BooksApp extends React.Component {
             onSearch={this.findBook}
             searchResult={this.state.searchResult}
             onChangeBookShelf={this.handleBookShelf}
+            onReset={this.resetSearchResults}
           />
         )}
         />

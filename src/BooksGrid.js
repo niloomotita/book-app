@@ -7,6 +7,12 @@ class BooksGrid extends Component {
     state = {
         value: 'none'
     }
+    /**
+   * sets correct shelf
+   * @param {string} bookId 
+   * @param {htmlelemnt} shelfSelector 
+   * @memberof BookGrid
+   */
     getBookShelf(bookId, shelfSelector) {
         BooksAPI.get(bookId).then((book) => {
             shelfSelector.value = book.shelf
@@ -22,7 +28,7 @@ class BooksGrid extends Component {
                             <div className="book-top">
                                 <div className="book-cover" style={{
                                     width: 128, height: 193, backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail
-                                        })`
+                                    })`
                                 }}></div>
                                 <div className="book-shelf-changer">
                                     <select value={book.shelf || "none"} onClick={(event) => { this.getBookShelf(book.id, event.target) }} onChange={(event) => { onChangeBookShelf(book, event.target.value) }}>
